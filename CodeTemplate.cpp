@@ -35,9 +35,56 @@ vector<char> segmentedSieve(long long L, long long R) {
     return isPrime;
 }
 
+vector<bool> sieveOfEratosthenes(ll n) {
+    vector<bool> is_prime(n+1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i * i <= n; i++) {
+        if (is_prime[i]) {
+            for (int j = i * i; j <= n; j += i)
+                is_prime[j] = false;
+        }
+    }
+    return is_prime;
+}
+
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
+    }
+    return res;
+}
+
+int binarySearch(const vector<ll>& a, int k) {
+    ll inicio = -1, fin = a.size(); 
+    // Inicio apunta a la posicion del primer elemento del arreglo que cumple con la condicion
+    // Fin apunta a la posicion del ultimo elemento del arreglo que cumple con la condicion
+
+    while(inicio + 1 < fin){
+        ll mitad = inicio + (fin - inicio) / 2;
+
+        if(k >= a[mitad]){
+            inicio = mitad;
+        }
+        else{
+            fin = mitad;
+        }
+    }
+    
+    return inicio+1; 
+}
+
+
 void solve();
 
 int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
     ll t; 
     cin>>t;
     //t = 1;
